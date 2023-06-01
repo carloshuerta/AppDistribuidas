@@ -10,7 +10,11 @@ builder.Services.AddCors(options =>
                       policy =>
                       {
                           policy.WithOrigins("https://localhost:7061",
-                                              "https://localhost:5000");
+                                              "https://localhost:5000",
+                                              "http://localhost:19006/");
+                          policy.AllowAnyHeader();
+                          policy.AllowAnyMethod();
+                          policy.AllowAnyOrigin();
                       });
 });
 builder.Services.AddDbContext<ApplicacionesDistribuidasContext>();
@@ -30,7 +34,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors();
+app.UseCors(MyAllowSpecificOrigins);
 app.UseAuthorization();
 
 app.MapControllers();
