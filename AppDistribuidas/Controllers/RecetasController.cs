@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AppDistribuidas.Models;
+using System.Linq.Expressions;
+using NuGet.Protocol;
 
 namespace AppDistribuidas.Controllers
 {
@@ -48,6 +50,166 @@ namespace AppDistribuidas.Controllers
 
             return receta;
         }
+
+        // GET: api/Recetas/5
+        [HttpGet("buscar/pornombre/{name}")]
+        public async Task<ActionResult<Receta>> GetRecetaPorNombre(string name)
+        {
+            if (_context.Recetas == null)
+            {
+                return NotFound();
+            }
+            var recetas = await _context.Recetas.ToListAsync();
+            foreach (var receta in recetas) 
+            { 
+             if (receta.Nombre == name)
+                {
+                    return receta;
+                }
+            
+            }
+
+            return NotFound();
+
+        }
+
+        // GET: api/Recetas/5
+        [HttpGet("buscar/portipo/{tipo}")]
+        public async Task<ActionResult<IEnumerable<Receta>>> GetRecetaPorTipo(string tipo)
+        {
+            if (_context.Recetas == null)
+            {
+                return NotFound();
+            }
+            List<Receta> encontrados = new List<Receta>();
+
+            var tipos = await _context.Tipos.ToListAsync();
+
+            foreach (var tipoIndividual in tipos)
+            { 
+                if(tipoIndividual.Descripcion == tipo)
+                {
+                    var recetas = await _context.Recetas.ToListAsync();
+                    foreach (var receta in recetas)
+                    {
+                        if (receta.IdTipo == tipoIndividual.IdTipo)
+                        {
+                            encontrados.Add(receta);
+                        }
+
+                    }
+
+                    return encontrados.ToArray<Receta>();
+                }
+            }
+            return NotFound();
+        }
+
+        // GET: api/Recetas/5
+        [HttpGet("buscar/poringrediente/{ingrediente}")]
+        public async Task<ActionResult<IEnumerable<Receta>>> GetRecetaPorIngrediente(string ingrediente)
+        {
+            if (_context.Recetas == null)
+            {
+                return NotFound();
+            }
+            List<Receta> encontrados = new List<Receta>();
+
+            var ingredientes = await _context.Ingredientes.ToListAsync();
+
+            foreach (var ingredienteIndividual in ingredientes)
+            {
+                if (ingredienteIndividual.Nombre == ingrediente)
+                {
+                    var utilizados = await _context.Utilizados.ToListAsync();
+                    foreach (var utilizado in utilizados)
+                    {
+                        var recetas = await _context.Recetas.ToListAsync();
+                        foreach (var receta in recetas)
+                        {
+                            if (utilizado.IdReceta == receta.IdReceta && utilizado.IdIngrediente == ingredienteIndividual.IdIngrediente)
+                            {
+                                encontrados.Add(receta);
+                            }
+
+                        }
+
+                        return encontrados.ToArray<Receta>();
+                    }
+                }
+            }
+            return NotFound();
+        }
+
+
+        // GET: api/Recetas/5
+        [HttpGet("buscar/porusuario/{usuario}")]
+        public async Task<ActionResult<IEnumerable<Receta>>> GetRecetaPorUsuario(string usuario)
+        {
+            if (_context.Recetas == null)
+            {
+                return NotFound();
+            }
+            List<Receta> encontrados = new List<Receta>();
+
+            var usuarios = await _context.Usuarios.ToListAsync();
+
+            foreach (var usuarioIndividual in usuarios)
+            {
+                if (usuarioIndividual.Nombre == usuario)
+                {
+                    var recetas = await _context.Recetas.ToListAsync();
+                    foreach (var receta in recetas)
+                    {
+                        if (receta.IdUsuario == usuarioIndividual.IdUsuario)
+                        {
+                            encontrados.Add(receta);
+                        }
+
+                    }
+
+                    return encontrados.ToArray<Receta>();
+                }
+            }
+            return NotFound();
+        }
+
+        // GET: api/Recetas/5
+        [HttpGet("buscar/poringredientefaltante/{ingrediente}")]
+        public async Task<ActionResult<IEnumerable<Receta>>> GetRecetaPorIngredienteFaltante(string ingrediente)
+        {
+            if (_context.Recetas == null)
+            {
+                return NotFound();
+            }
+            List<Receta> encontrados = await _context.Recetas.ToListAsync();
+
+            var ingredientes = await _context.Ingredientes.ToListAsync();
+
+            foreach (var ingredienteIndividual in ingredientes)
+            {
+                if (ingredienteIndividual.Nombre == ingrediente)
+                {
+                    var utilizados = await _context.Utilizados.ToListAsync();
+                    foreach (var utilizado in utilizados)
+                    {
+                        var recetas = await _context.Recetas.ToListAsync();
+                        foreach (var receta in recetas)
+                        {
+                            if (utilizado.IdReceta == receta.IdReceta && utilizado.IdIngrediente == ingredienteIndividual.IdIngrediente)
+                            {
+                                encontrados.Remove(receta);
+                            }
+
+                        }
+
+                        
+                    }
+                }return encontrados.ToArray<Receta>();
+            }
+            return NotFound();
+        }
+
 
         // PUT: api/Recetas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
