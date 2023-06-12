@@ -73,7 +73,7 @@ namespace AppDistribuidas.Controllers
 
         }
 
-        // GET: api/Recetas/5
+        // GET: api/portipo/tipo
         [HttpGet("buscar/portipo/{tipo}")]
         public async Task<ActionResult<IEnumerable<Receta>>> GetRecetaPorTipo(string tipo)
         {
@@ -105,7 +105,7 @@ namespace AppDistribuidas.Controllers
             return NotFound();
         }
 
-        // GET: api/Recetas/5
+        // GET: api/poringrediente/ingrediente
         [HttpGet("buscar/poringrediente/{ingrediente}")]
         public async Task<ActionResult<IEnumerable<Receta>>> GetRecetaPorIngrediente(string ingrediente)
         {
@@ -142,7 +142,7 @@ namespace AppDistribuidas.Controllers
         }
 
 
-        // GET: api/Recetas/5
+        // GET: api/porusuario/usuario
         [HttpGet("buscar/porusuario/{usuario}")]
         public async Task<ActionResult<IEnumerable<Receta>>> GetRecetaPorUsuario(string usuario)
         {
@@ -174,7 +174,7 @@ namespace AppDistribuidas.Controllers
             return NotFound();
         }
 
-        // GET: api/Recetas/5
+        // GET: api/poringredientefaltante/ingrediente
         [HttpGet("buscar/poringredientefaltante/{ingrediente}")]
         public async Task<ActionResult<IEnumerable<Receta>>> GetRecetaPorIngredienteFaltante(string ingrediente)
         {
