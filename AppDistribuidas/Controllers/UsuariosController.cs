@@ -199,7 +199,7 @@ namespace AppDistribuidas.Controllers
 
         private async Task RecuperocontrasenaEmail(string useremail, string username, string codigo)
         {
-            var apiKey = "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";
+            var apiKey = "replace here";
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress("chuerta@uade.edu.ar", "Bonaapetit Recupero de contrasena");
             var subject = "Recupero de contrasena bonappetit";
