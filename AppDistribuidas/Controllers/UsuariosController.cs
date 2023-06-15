@@ -186,7 +186,7 @@ namespace AppDistribuidas.Controllers
         }
         private async Task RegistracionExitosa(string useremail, string username)
         {
-            var apiKey = "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";
+            var apiKey = "replace here";
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress("chuerta@uade.edu.ar", "Bonaapetit Registracion");
             var subject = "Te registraste a bonappetit!!";
