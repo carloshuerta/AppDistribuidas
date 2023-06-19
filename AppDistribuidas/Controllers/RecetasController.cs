@@ -174,6 +174,38 @@ namespace AppDistribuidas.Controllers
             return NotFound();
         }
 
+        // GET: api/porusuario/usuario
+        [HttpGet("buscar/pornickname/{usuario}")]
+        public async Task<ActionResult<IEnumerable<Receta>>> GetRecetaPorNickname(string nickname)
+        {
+            if (_context.Recetas == null)
+            {
+                return NotFound();
+            }
+            List<Receta> encontrados = new List<Receta>();
+
+            var usuarios = await _context.Usuarios.ToListAsync();
+
+            foreach (var usuarioIndividual in usuarios)
+            {
+                if (usuarioIndividual.Nickname == nickname)
+                {
+                    var recetas = await _context.Recetas.ToListAsync();
+                    foreach (var receta in recetas)
+                    {
+                        if (receta.IdUsuario == usuarioIndividual.IdUsuario)
+                        {
+                            encontrados.Add(receta);
+                        }
+
+                    }
+
+                    return encontrados.ToArray<Receta>();
+                }
+            }
+            return NotFound();
+        }
+
         // GET: api/poringredientefaltante/ingrediente
         [HttpGet("buscar/poringredientefaltante/{ingrediente}")]
         public async Task<ActionResult<IEnumerable<Receta>>> GetRecetaPorIngredienteFaltante(string ingrediente)
