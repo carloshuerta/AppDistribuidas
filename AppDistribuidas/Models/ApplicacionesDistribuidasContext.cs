@@ -29,6 +29,8 @@ public partial class ApplicacionesDistribuidasContext : DbContext
 
     public virtual DbSet<Receta> Recetas { get; set; }
 
+    public virtual DbSet<Recetasfavorita> Recetasfavoritas { get; set; }
+
     public virtual DbSet<Tipo> Tipos { get; set; }
 
     public virtual DbSet<Unidade> Unidades { get; set; }
@@ -202,6 +204,17 @@ public partial class ApplicacionesDistribuidasContext : DbContext
             entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.Receta)
                 .HasForeignKey(d => d.IdUsuario)
                 .HasConstraintName("fk_recetas_usuarios");
+        });
+
+        modelBuilder.Entity<Recetasfavorita>(entity =>
+        {
+            entity.HasKey(e => e.IdRecetaFavorita).HasName("PK__recetasf__364204873F97335C");
+
+            entity.ToTable("recetasfavoritas");
+
+            entity.Property(e => e.IdRecetaFavorita).HasColumnName("idRecetaFavorita");
+            entity.Property(e => e.Idreceta).HasColumnName("idreceta");
+            entity.Property(e => e.Idusuario).HasColumnName("idusuario");
         });
 
         modelBuilder.Entity<Tipo>(entity =>
