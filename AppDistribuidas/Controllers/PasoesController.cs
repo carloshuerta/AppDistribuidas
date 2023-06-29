@@ -31,6 +31,20 @@ namespace AppDistribuidas.Controllers
             return await _context.Pasos.ToListAsync();
         }
 
+        // GET: api/Pasos
+        [HttpGet("pasosPorRecetas/{idReceta}")]
+        public async Task<ActionResult<IEnumerable<Paso>>> GetPasosPorRecetas(int idReceta)
+        {
+            if (_context.Pasos == null)
+            {
+                return NotFound();
+            }
+
+
+
+            return await _context.Pasos.Where(x => x.IdReceta.Equals(idReceta)).ToListAsync();
+        }
+
         // GET: api/Pasos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Paso>> GetPaso(int id)

@@ -189,6 +189,7 @@ public partial class ApplicacionesDistribuidasContext : DbContext
                 .HasMaxLength(300)
                 .IsUnicode(false)
                 .HasColumnName("foto");
+            entity.Property(e => e.Habilitado).HasColumnName("habilitado");
             entity.Property(e => e.IdTipo).HasColumnName("idTipo");
             entity.Property(e => e.IdUsuario).HasColumnName("idUsuario");
             entity.Property(e => e.Nombre)

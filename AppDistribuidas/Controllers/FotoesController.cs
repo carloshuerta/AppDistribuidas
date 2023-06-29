@@ -31,6 +31,17 @@ namespace AppDistribuidas.Controllers
             return await _context.Fotos.ToListAsync();
         }
 
+        // GET: api/Utilizadoes
+        [HttpGet("fotoPorRecetas/{idReceta}")]
+        public async Task<ActionResult<IEnumerable<Foto>>> CalificacionePorRecetas(int idReceta)
+        {
+            if (_context.Fotos == null)
+            {
+                return NotFound();
+            }
+            return await _context.Fotos.Where(x => x.IdReceta.Equals(idReceta)).ToListAsync();
+        }
+
         // GET: api/Fotoes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Foto>> GetFoto(int id)

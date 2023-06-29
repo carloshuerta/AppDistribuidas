@@ -31,6 +31,17 @@ namespace AppDistribuidas.Controllers
             return await _context.Multimedia.ToListAsync();
         }
 
+        // GET: api/Utilizadoes
+        [HttpGet("MultimediumPorPaso/{idPaso}")]
+        public async Task<ActionResult<IEnumerable<Multimedium>>> MultimediumPorPaso(int idPaso)
+        {
+            if (_context.Multimedia == null)
+            {
+                return NotFound();
+            }
+            return await _context.Multimedia.Where(x => x.IdPaso.Equals(idPaso)).ToListAsync();
+        }
+
         // GET: api/Multimediums/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Multimedium>> GetMultimedium(int id)

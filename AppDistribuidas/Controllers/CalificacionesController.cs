@@ -31,6 +31,17 @@ namespace AppDistribuidas.Controllers
             return await _context.Calificaciones.ToListAsync();
         }
 
+        // GET: api/Utilizadoes
+        [HttpGet("calificacionePorRecetas/{idReceta}")]
+        public async Task<ActionResult<IEnumerable<Calificacione>>> CalificacionePorRecetas(int idReceta)
+        {
+            if (_context.Calificaciones == null)
+            {
+                return NotFound();
+            }
+            return await _context.Calificaciones.Where(x => x.IdReceta.Equals(idReceta)).ToListAsync();
+        }
+
         // GET: api/Calificaciones/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Calificacione>> GetCalificacione(int id)

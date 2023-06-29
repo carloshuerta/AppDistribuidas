@@ -31,6 +31,17 @@ namespace AppDistribuidas.Controllers
             return await _context.Utilizados.ToListAsync();
         }
 
+        // GET: api/Utilizadoes
+        [HttpGet("utilizadoPorRecetas/{idReceta}")]
+        public async Task<ActionResult<IEnumerable<Utilizado>>> UtilizadoPorRecetas(int idReceta)
+        {
+            if (_context.Utilizados == null)
+            {
+                return NotFound();
+            }
+            return await _context.Utilizados.Where(x => x.IdReceta.Equals(idReceta)).ToListAsync();
+        }
+
         // GET: api/Utilizadoes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Utilizado>> GetUtilizado(int id)

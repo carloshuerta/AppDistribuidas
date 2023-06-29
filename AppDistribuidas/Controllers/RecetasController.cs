@@ -33,6 +33,28 @@ namespace AppDistribuidas.Controllers
             return await _context.Recetas.ToListAsync();
         }
 
+        // GET: api/Recetas
+        [HttpGet("recetasHabilitadas")]
+        public async Task<ActionResult<IEnumerable<Receta>>> GetRecetasHabilitadas()
+        {
+            if (_context.Recetas == null)
+            {
+                return NotFound();
+            }
+            return await _context.Recetas.Where(x => x.Habilitado.Equals(true)).ToListAsync();
+        }
+        // GET: api/Recetas
+        [HttpGet("recetasNoHabilitadas")]
+        public async Task<ActionResult<IEnumerable<Receta>>> GetRecetasNOHabilitadas()
+        {
+            if (_context.Recetas == null)
+            {
+                return NotFound();
+            }
+            return await _context.Recetas.Where(x => x.Habilitado.Equals(false)).ToListAsync();
+        }
+
+
         // GET: api/Recetas/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Receta>> GetReceta(int id)
