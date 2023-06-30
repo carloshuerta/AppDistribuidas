@@ -13,5 +13,5 @@ public partial class Foto
 
     public string? Extension { get; set; }
 
-    public virtual Receta IdRecetaNavigation { get; set; } = null!;
+    public virtual Receta? IdRecetaNavigation { get; set; } = null!;
 }
