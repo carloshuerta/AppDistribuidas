@@ -15,5 +15,5 @@ public partial class Multimedium
 
     public string? UrlContenido { get; set; }
 
-    public virtual Paso IdPasoNavigation { get; set; } = null!;
+    public virtual Paso? IdPasoNavigation { get; set; } = null!;
 }

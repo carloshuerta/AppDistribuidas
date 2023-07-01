@@ -13,7 +13,7 @@ public partial class Conversione
 
     public double? FactorConversiones { get; set; }
 
-    public virtual Unidade IdUnidadDestinoNavigation { get; set; } = null!;
+    public virtual Unidade? IdUnidadDestinoNavigation { get; set; } = null!;
 
-    public virtual Unidade IdUnidadOrigenNavigation { get; set; } = null!;
+    public virtual Unidade? IdUnidadOrigenNavigation { get; set; } = null!;
 }
