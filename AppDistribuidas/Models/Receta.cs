@@ -23,6 +23,8 @@ public partial class Receta
 
     public bool Habilitado { get; set; }
 
+    public bool Personalizada { get; set; }
+
     public virtual ICollection<Calificacione> Calificaciones { get; set; } = new List<Calificacione>();
 
     public virtual ICollection<Foto> Fotos { get; set; } = new List<Foto>();

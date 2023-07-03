@@ -197,7 +197,7 @@ namespace AppDistribuidas.Controllers
         }
 
         // GET: api/porusuario/usuario
-        [HttpGet("buscar/pornickname/{usuario}")]
+        [HttpGet("buscar/pornickname/{nickname}")]
         public async Task<ActionResult<IEnumerable<Receta>>> GetRecetaPorNickname(string nickname)
         {
             if (_context.Recetas == null)

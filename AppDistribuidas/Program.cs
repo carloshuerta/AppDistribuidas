@@ -12,7 +12,9 @@ builder.Services.AddCors(options =>
                       {
                           policy.WithOrigins("https://localhost:7061",
                                               "https://localhost:5000",
-                                              "http://localhost:19006/");
+                                              "http://localhost:19006/",
+                                              "https://appdistribuidasapi.azurewebsites.net/",
+                                              "http://appdistribuidasapi.azurewebsites.net/");
                           policy.AllowAnyHeader();
                           policy.AllowAnyMethod();
                           policy.AllowAnyOrigin();
@@ -29,12 +31,10 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+// Configure the HTTP request pipeline
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+
 
 app.UseHttpsRedirection();
 app.UseCors(MyAllowSpecificOrigins);

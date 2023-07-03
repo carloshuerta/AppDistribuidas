@@ -41,7 +41,7 @@ public partial class ApplicacionesDistribuidasContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=localhost;Database=ApplicacionesDistribuidas;User Id=distribsa;Password=distribsa;TrustServerCertificate=true;");
+        => optionsBuilder.UseSqlServer("Server=sqldbdistribuidas.database.windows.net;Database=ApplicacionesDistribuidas;User Id=distribsa;Password=databasePa$$word01;TrustServerCertificate=true;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -196,6 +196,7 @@ public partial class ApplicacionesDistribuidasContext : DbContext
                 .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("nombre");
+            entity.Property(e => e.Personalizada).HasColumnName("personalizada");
             entity.Property(e => e.Porciones).HasColumnName("porciones");
 
             entity.HasOne(d => d.IdTipoNavigation).WithMany(p => p.Receta)
